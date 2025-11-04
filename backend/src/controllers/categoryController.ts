@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { prisma } from '../index'
 import { z } from 'zod'
+import { canDeleteCategory } from '../utils/categoryRules'
 
 // Validation schemas
 const createCategorySchema = z.object({
@@ -171,7 +172,7 @@ export const deleteCategory = async (req: Request, res: Response) => {
       where: { categoryId: id }
     })
 
-    if (tasksCount > 0) {
+    if (!canDeleteCategory(tasksCount)) {
       return res.status(400).json({
         success: false,
         error: 'Cannot delete category with existing tasks'
