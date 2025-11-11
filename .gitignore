@@ -4,3 +4,5 @@ backend/node_modules
 backend/coverage
 frontend/node_modules
 frontend/coverage
+package-lock.json
+node_modules
